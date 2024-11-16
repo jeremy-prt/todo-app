@@ -6,7 +6,11 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-var indexRouter = require("./routes/task");
+require("./models");
+
+var indexRouter = require("./routes/index");
+var legacyTaskRouter = require("./routes/legacytask");
+var taskRouter = require("./routes/task");
 
 var app = express();
 
@@ -14,8 +18,9 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/tasks", indexRouter);
+app.use("/", indexRouter);
+app.use("/legacytasks", legacyTaskRouter);
+app.use("/tasks", taskRouter);
 
 module.exports = app;

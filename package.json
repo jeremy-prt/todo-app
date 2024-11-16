@@ -13,6 +13,7 @@
     "morgan": "~1.9.1",
     "mysql2": "^3.11.3",
     "nodeman": "^1.1.2",
-    "nodemon": "^3.1.7"
+    "nodemon": "^3.1.7",
+    "sequelize": "^6.37.5"
   }
 }
