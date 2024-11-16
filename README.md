@@ -29,7 +29,6 @@ Une API de gestion de tâches construite avec **Node.js**, **Express**, et **Seq
 4. Lancez le serveur backend :  
    `npm start`
 
-5. Configurez le frontend PHP (placez les fichiers dans un serveur web comme Apache).
 
 ## API Principale
 
