@@ -3,9 +3,9 @@ var router = express.Router();
 const { Task, Type } = require("../models");
 const { Op } = require("sequelize");
 
-// ALL tâches avec filtrage par titre, done, page
+// ALL tâches avec filtrage par titre, date(due_date) done, page
 router.get("/", async (req, res) => {
-  const { titre, page = 1, limit = 3, done } = req.query;
+  const { titre, date, page = 1, limit = 3, done } = req.query;
   const offset = (page - 1) * limit;
 
   try {
@@ -17,6 +17,10 @@ router.get("/", async (req, res) => {
       where.done = done === "true";
     }
 
+    if (date) {
+      where.due_date = { [Op.lte]: new Date(date) };
+    }
+
     const totalTasks = await Task.count({ where });
     const maxPages = Math.ceil(totalTasks / limit);
 
@@ -24,6 +28,9 @@ router.get("/", async (req, res) => {
       where,
       limit: parseInt(limit),
       offset: parseInt(offset),
+      include: {
+        model: Type,
+      },
     });
 
     res.json({
